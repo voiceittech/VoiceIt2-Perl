@@ -47,8 +47,8 @@ For a complete list of all the API calls, please refer to the official API 2 doc
 ### Initialization
 Initialize a VoiceIt Object like this with your own API key and token
 ```perl
-require voiceIt::voiceIt2;
- my $myVoiceIt = voiceIt::voiceIt2->new("YOUR_KEY","YOUR_TOKEN");
+require voiceIt2;
+ my $myVoiceIt = voiceIt2->new("YOUR_KEY","YOUR_TOKEN");
  ```
 
 ### API calls
