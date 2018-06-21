@@ -42,6 +42,7 @@ You can download this repository and add its contents to your root project folde
 
 
 ## API Calls
+For a complete list of all the API calls, pleaser refer to the official API 2 docs: https://api.voiceit.io/
 
 ### Initialization
 Initialize a VoiceIt Object like this with your own API key and token
