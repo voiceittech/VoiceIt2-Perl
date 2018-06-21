@@ -221,7 +221,7 @@ $myVoiceIt->videoIdentification("GROUP_ID_HERE", "CONTENT_LANGUAGE_HERE",  "FILE
 
 ## Author
 
-Stephen Akers, stephen@voiceit.io
+Hassan Ismaeel, hassan@voiceit.io
 
 ## License
 
