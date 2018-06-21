@@ -46,7 +46,7 @@ You can download this repository and add its contents to your root project folde
 ### Initialization
 Initialize a VoiceIt Object like this with your own API key and token
 ```perl
-require VoiceIt;
+require voiceIt::voiceIt2;
  my $myVoiceIt = voiceIt::voiceIt2->new("YOUR_KEY","YOUR_TOKEN");
  ```
 
