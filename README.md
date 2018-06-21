@@ -38,9 +38,9 @@ Sign up for a free Developer Account at <a href="https://voiceit.io/signup" targ
 
 ## Installation 
 
-You can download this repository and add its contents to your root project folder
+You can download this repository and add its contents to your root project folder.
 Please make sure you have the HTTP::Commons module installed. We prefer you do so through cpan:
-type cpan into terminal to start the cpan. Type:
+start cpan by typing "cpan" into terminal. Then type:
 ```
 install HTTP::Request::Common
 ```
