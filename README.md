@@ -27,6 +27,7 @@ A Perl wrapper for VoiceIt's new API2.0 featuring Voice + Face Verification and 
       * [Create Video Enrollment](#create-video-enrollment)
   * [Verification API Calls](#verification-api-calls)
       * [Audio Verification](#voice-verification)
+      * [Face Verification](#face-verification)
       * [Video Verification](#video-verification)
   * [Identification API Calls](#identification-api-calls)
       * [Audio Identification](#voice-identification)
@@ -201,6 +202,11 @@ Verify user with the given userId(begins with 'usr_') and contentLanguage('en-US
 
 ```perl
 $myVoiceIt->voiceVerification("USER_ID_HERE", "CONTENT_LANGUAGE_HERE",  "FILE_PATH");
+```
+
+#### Face Verification 
+```perl 
+$myVoiceIt->faceVerification("USER_ID_HERE, "FILE_PATH");
 ```
 
 #### Video Verification
