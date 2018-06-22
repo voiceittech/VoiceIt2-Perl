@@ -51,7 +51,7 @@ install Bundle::LWP
 ```
 
 ## API Calls
-For a complete list of all the API calls, please refer to the official API 2 docs: https://api.voiceit.io/
+This is a curtailed documentaition of the API; For a complete list of all the API calls, please refer to the official API 2 docs: https://api.voiceit.io/
 
 ### Initialization
 Initialize a VoiceIt Object like this with your own API key and token
