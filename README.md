@@ -45,7 +45,7 @@ start cpan by typing "cpan" into terminal. Then type:
 ```
 install HTTP::Request::Common
 ```
-In case you do not have LWP::UserAgent, install so through cpan:
+In case you do not have LWP::UserAgent, install it through cpan:
 ```
 install Bundle::LWP
 ```
