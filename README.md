@@ -56,7 +56,7 @@ This is a curtailed documentaition of the API; For a complete list of all the AP
 ### Initialization
 Initialize a VoiceIt Object with your own API key and token
 ```perl
-require voiceIt2;
+require 'PATH_TO/voiceIt2.pm';
  my $myVoiceIt = voiceIt2->new("YOUR_KEY","YOUR_TOKEN");
  ```
 
