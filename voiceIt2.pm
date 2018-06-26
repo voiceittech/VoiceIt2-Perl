@@ -7,7 +7,7 @@ use HTTP::Request::Common qw(PUT);
 use HTTP::Request::Common qw(GET);
 
 my $self;
-my $baseUrl = 'https://api.voiceit.io/';
+my $baseUrl = 'https://api.voiceit.io';
 my $apiKey;
 my $apiToken;
 use strict;
@@ -22,88 +22,58 @@ sub new {
   sub getAllUsers() {
     shift;
     my $ua = LWP::UserAgent->new();
-    my $request = GET $baseUrl.'users';
+    my $request = GET $baseUrl.'/users';
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
   }
 
   sub createUser() {
     shift;
     my $ua = LWP::UserAgent->new();
-    my $request = POST $baseUrl.'users';
+    my $request = POST $baseUrl.'/users';
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
   }
 
   sub getUser(){
     shift;
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
-    my $request = GET $baseUrl.'users/'.$usrId;
+    my $request = GET $baseUrl.'/users/'.$usrId;
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
   }
 
   sub deleteUser(){
     shift;
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'users/'.$usrId;
+    my $request = DELETE $baseUrl.'/users/'.$usrId;
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
   }
 
   sub getGroupsForUser(){
     shift;
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
-    my $request = GET $baseUrl.'users/'.$usrId.'/groups';
+    my $request = GET $baseUrl.'/users/'.$usrId.'/groups';
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
   }
 
   sub getAllGroups(){
     shift;
     my $ua = LWP::UserAgent->new();
-    my $request = GET $baseUrl.'groups';
+    my $request = GET $baseUrl.'/groups';
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
   }
 
 
@@ -111,168 +81,118 @@ sub new {
     shift;
     my ($groupId) = @_;
     my $ua = LWP::UserAgent->new();
-    my $request = GET $baseUrl.'groups/'.$groupId;
+    my $request = GET $baseUrl.'/groups/'.$groupId;
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
-     if ($reply->is_success){
-        return $reply->content();
-    }
-    elsif ($reply->is_error){
-      return $reply->content();
-    }
+    return $reply->content();
 }
 
 sub groupExists(){
   shift;
   my ($groupId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = GET $baseUrl.'groups/'.$groupId.'/exists';
+  my $request = GET $baseUrl.'/groups/'.$groupId.'/exists';
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub createGroup(){
   shift;
   my ($des)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'groups', Content => [
+  my $request = POST $baseUrl.'/groups', Content => [
       description => $des
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub addUserToGroup(){
   shift;
   my ($grpId, $usrId)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = PUT $baseUrl.'groups/addUser',
+  my $request = PUT $baseUrl.'/groups/addUser',
     Content => [
         groupId => $grpId,
         userId => $usrId,
     ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub removeUserFromGroup(){
   shift;
   my ($grpId, $usrId)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = PUT $baseUrl.'groups/removeUser',
+  my $request = PUT $baseUrl.'/groups/removeUser',
     Content => [
         groupId => $grpId,
         userId => $usrId,
     ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub deleteGroup(){
   shift;
   my ($grpId)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'groups/'.$grpId;
+  my $request = DELETE $baseUrl.'/groups/'.$grpId;
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub getAllEnrollmentsForUser(){
   shift;
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = GET $baseUrl.'enrollments/'.$usrId;
+  my $request = GET $baseUrl.'/enrollments/'.$usrId;
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub getAllFaceEnrollmentsForUser(){
   shift;
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = GET $baseUrl.'enrollments/face/'.$usrId;
+  my $request = GET $baseUrl.'/enrollments/face/'.$usrId;
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub createVoiceEnrollment(){
   shift;
   my ($usrId, $lang, $filePath) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'enrollments', Content_Type => 'form-data',  Content => [
+  my $request = POST $baseUrl.'/enrollments', Content_Type => 'form-data',  Content => [
         recording => [$filePath],
         userId => $usrId,
         contentLanguage => $lang,
     ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub createVoiceEnrollmentByUrl(){
   shift;
   my ($usrId, $lang, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'enrollments/byUrl', Content_Type => 'form-data',  Content => [
+  my $request = POST $baseUrl.'/enrollments/byUrl', Content_Type => 'form-data',  Content => [
         fileUrl => $fileUrl,
         userId => $usrId,
         contentLanguage => $lang,
     ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub createFaceEnrollment(){
@@ -283,19 +203,14 @@ sub createFaceEnrollment(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'enrollments/face', Content_Type => 'form-data',  Content => [
+  my $request = POST $baseUrl.'/enrollments/face', Content_Type => 'form-data',  Content => [
         video => [$filePath],
         userId => $usrId,
         doBlinkDetection => $blink
     ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub createVideoEnrollment(){
@@ -306,7 +221,7 @@ sub createVideoEnrollment(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'enrollments/video', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/enrollments/video', Content_Type => 'form-data', Content => [
         video => [$filePath],
         userId => $usrId,
         contentLanguage => $lang,
@@ -314,42 +229,27 @@ sub createVideoEnrollment(){
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub deleteAllEnrollmentsForUser() {
   shift;
   my ($usrId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'enrollments/'.$usrId."/all", Content_Type => 'form-data';
+  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/all", Content_Type => 'form-data';
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub deleteFaceEnrollment(){
   shift;
   my ($usrId, $faceEnrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'enrollments/face/'.$usrId."/".$faceEnrollmentId, Content_Type => 'form-data';
+  my $request = DELETE $baseUrl.'/enrollments/face/'.$usrId."/".$faceEnrollmentId, Content_Type => 'form-data';
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 
@@ -357,53 +257,38 @@ sub deleteEnrollment(){
   shift;
   my ($usrId, $enrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'enrollments/'.$usrId."/".$enrollmentId, Content_Type => 'form-data';
+  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/".$enrollmentId, Content_Type => 'form-data';
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub voiceVerification(){
   shift;
   my ($usrId, $lang, $filePath) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'verification', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification', Content_Type => 'form-data', Content => [
         recording => [$filePath],
         userId => $usrId,
         contentLanguage => $lang,
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub voiceVerificationByUrl(){
   shift;
   my ($usrId, $lang, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'verification/byUrl', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         userId => $usrId,
         contentLanguage => $lang,
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub faceVerification(){
@@ -414,19 +299,14 @@ sub faceVerification(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'verification/face', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification/face', Content_Type => 'form-data', Content => [
         video => [$filePath],
         userId => $usrId,
         doBlinkDetection => $blink
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub videoVerification(){
@@ -437,7 +317,7 @@ sub videoVerification(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'verification/video', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification/video', Content_Type => 'form-data', Content => [
         video => [$filePath],
         userId => $usrId,
         contentLanguage => $lang,
@@ -445,12 +325,7 @@ sub videoVerification(){
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 
@@ -462,7 +337,7 @@ sub videoVerificationByUrl(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'verification/video/byUrl', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification/video/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         userId => $usrId,
         contentLanguage => $lang,
@@ -470,50 +345,35 @@ sub videoVerificationByUrl(){
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub voiceIdentification(){
   shift;
   my ($grpId, $lang, $filePath) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'identification', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/identification', Content_Type => 'form-data', Content => [
         recording => [$filePath],
         groupId => $grpId,
         contentLanguage => $lang,
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub voiceIdentificationByUrl(){
   shift;
   my ($grpId, $lang, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'identification/byUrl', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/identification/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         groupId => $grpId,
         contentLanguage => $lang,
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 sub videoIdentification(){
@@ -524,7 +384,7 @@ sub videoIdentification(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'identification/video', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/identification/video', Content_Type => 'form-data', Content => [
         video => [$filePath],
         groupId => $grpId,
         contentLanguage => $lang,
@@ -532,12 +392,7 @@ sub videoIdentification(){
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 
@@ -549,7 +404,7 @@ sub videoIdentificationByUrl(){
   if($doBlink){
     $blink = $doBlink;
   }
-  my $request = POST $baseUrl.'identification/video/byUrl', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/identification/video/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         groupId => $grpId,
         contentLanguage => $lang,
@@ -557,12 +412,7 @@ sub videoIdentificationByUrl(){
   ];
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-   if ($reply->is_success){
-      return $reply->content();
-  }
-  elsif ($reply->is_error){
-    return $reply->content();
-  }
+  return $reply->content();
 }
 
 1;
