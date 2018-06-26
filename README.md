@@ -47,9 +47,9 @@ install HTTP::Request::Common
 ```
 In case you do not have LWP::UserAgent, install it through cpan:
 ```
-install WP::UserAgent
+install LWP::UserAgent
 ```
-ALso make sure you have LWP::Protocol::https module installed to provide https suppot to the  User agent
+Also make sure you have LWP::Protocol::https module installed to provide https suppot to the  User agent
 ```
 install LWP::Protocol::https
 ```
