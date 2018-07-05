@@ -37,7 +37,7 @@ sub new {
     return $reply->content();
   }
 
-  sub getUser(){
+  sub checkUserExists(){
     shift;
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
