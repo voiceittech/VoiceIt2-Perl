@@ -246,7 +246,7 @@ sub deleteFaceEnrollment(){
   shift;
   my ($usrId, $faceEnrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'/enrollments/face/'.$usrId."/".$faceEnrollmentId, Content_Type => 'form-data';
+  my $request = DELETE $baseUrl.'/enrollments/face/'.$usrId."/" . $faceEnrollmentId, Content_Type => 'form-data';
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -257,7 +257,7 @@ sub deleteEnrollment(){
   shift;
   my ($usrId, $enrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/".$enrollmentId, Content_Type => 'form-data';
+  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/" . $enrollmentId, Content_Type => 'form-data';
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
