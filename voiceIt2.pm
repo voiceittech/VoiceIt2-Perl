@@ -10,6 +10,7 @@ my $self;
 my $baseUrl = 'https://api.voiceit.io';
 my $apiKey;
 my $apiToken;
+my $platformId = 38;
 use strict;
 
 sub new {
@@ -23,6 +24,7 @@ sub new {
     shift;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/users';
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -32,6 +34,7 @@ sub new {
     shift;
     my $ua = LWP::UserAgent->new();
     my $request = POST $baseUrl.'/users';
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -42,6 +45,7 @@ sub new {
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/users/'.$usrId;
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -52,6 +56,7 @@ sub new {
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/users/'.$usrId;
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -62,6 +67,7 @@ sub new {
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/users/'.$usrId.'/groups';
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -71,6 +77,7 @@ sub new {
     shift;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/groups';
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -82,6 +89,7 @@ sub new {
     my ($groupId) = @_;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/groups/'.$groupId;
+    $request->header('platformId' => $platformId);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -92,6 +100,7 @@ sub groupExists(){
   my ($groupId) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = GET $baseUrl.'/groups/'.$groupId.'/exists';
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -104,6 +113,7 @@ sub createGroup(){
   my $request = POST $baseUrl.'/groups', Content => [
       description => $des
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -118,6 +128,7 @@ sub addUserToGroup(){
         groupId => $grpId,
         userId => $usrId,
     ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -132,6 +143,7 @@ sub removeUserFromGroup(){
         groupId => $grpId,
         userId => $usrId,
     ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -142,6 +154,7 @@ sub deleteGroup(){
   my ($grpId)= @_;
   my $ua = LWP::UserAgent->new();
   my $request = DELETE $baseUrl.'/groups/'.$grpId;
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -152,6 +165,7 @@ sub getAllEnrollmentsForUser(){
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
   my $request = GET $baseUrl.'/enrollments/'.$usrId;
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -162,6 +176,7 @@ sub getAllFaceEnrollmentsForUser(){
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
   my $request = GET $baseUrl.'/enrollments/face/'.$usrId;
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -176,6 +191,7 @@ sub createVoiceEnrollment(){
         userId => $usrId,
         contentLanguage => $lang,
     ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -190,6 +206,7 @@ sub createVoiceEnrollmentByUrl(){
         userId => $usrId,
         contentLanguage => $lang,
     ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -208,6 +225,7 @@ sub createFaceEnrollment(){
         userId => $usrId,
         doBlinkDetection => $blink
     ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -227,6 +245,7 @@ sub createVideoEnrollment(){
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -237,6 +256,7 @@ sub deleteAllEnrollmentsForUser() {
   my ($usrId) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/all", Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -247,6 +267,7 @@ sub deleteFaceEnrollment(){
   my ($usrId, $faceEnrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = DELETE $baseUrl.'/enrollments/face/'.$usrId."/" . $faceEnrollmentId, Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -258,6 +279,7 @@ sub deleteEnrollment(){
   my ($usrId, $enrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/" . $enrollmentId, Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -272,6 +294,7 @@ sub voiceVerification(){
         userId => $usrId,
         contentLanguage => $lang,
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -286,6 +309,7 @@ sub voiceVerificationByUrl(){
         userId => $usrId,
         contentLanguage => $lang,
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -304,6 +328,7 @@ sub faceVerification(){
         userId => $usrId,
         doBlinkDetection => $blink
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -323,6 +348,7 @@ sub videoVerification(){
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -343,6 +369,7 @@ sub videoVerificationByUrl(){
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -357,6 +384,7 @@ sub voiceIdentification(){
         groupId => $grpId,
         contentLanguage => $lang,
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -371,6 +399,7 @@ sub voiceIdentificationByUrl(){
         groupId => $grpId,
         contentLanguage => $lang,
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -390,6 +419,7 @@ sub videoIdentification(){
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -410,6 +440,7 @@ sub videoIdentificationByUrl(){
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
+  $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
