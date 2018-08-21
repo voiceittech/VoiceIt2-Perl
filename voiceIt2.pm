@@ -251,6 +251,26 @@ sub createVideoEnrollment(){
   return $reply->content();
 }
 
+sub createVideoEnrollmentByUrl(){
+  shift;
+  my $blink = 0;
+  my ($usrId, $lang, $fileUrl, $doBlink) = @_;
+  my $ua = LWP::UserAgent->new();
+  if($doBlink){
+    $blink = $doBlink;
+  }
+  my $request = POST $baseUrl.'/enrollments/video/byUrl', Content_Type => 'form-data', Content => [
+        fileUrl => $fileUrl,
+        userId => $usrId,
+        contentLanguage => $lang,
+        doBlinkDetection => $blink
+  ];
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
 sub deleteAllEnrollmentsForUser() {
   shift;
   my ($usrId) = @_;
