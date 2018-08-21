@@ -1,7 +1,7 @@
 language: perl
 perl:
 - '5.28'
-before_script:
+install:
 - cpan install HTTP::Request::Common
 - cpan install JSON::Parse
 script: perl test.pm
