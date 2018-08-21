@@ -2,6 +2,7 @@ language: perl
 perl:
 - '5.28'
 install:
+- (echo y;echo o conf prerequisites_policy follow;echo o conf commit) | cpan
 - cpan install HTTP::Request::Common
 - cpan install JSON::Parse
 script: perl test.pm
