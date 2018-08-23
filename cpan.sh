@@ -40,6 +40,7 @@ then
   echo $version
   mv 'voiceIt-voiceIt2-0.01.tar.gz' 'voiceIt-voiceIt2-'$version'.tar.gz'
   cpan-upload -u $PAUSEPERLUSERNAME:$PAUSEPERLPASSWORD 'voiceIt-voiceIt2-'$version'.tar.gz'
+  curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/voiceit2-perl/releases
 fi
 
 
