@@ -6,10 +6,11 @@ h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2
 cd voiceIt-voiceIt2
 perl Makefile.PL
 make dist
-cpan-upload -u $PAUSEPERLUSERNAME:$PAUSEPERLPASSWORD 
+ls
+# cpan-upload -u $PAUSEPERLUSERNAME:$PAUSEPERLPASSWORD 
 
 commit=$(git log -1 --pretty=%B | head -n 1)
-version=$(echo $(npm search voiceit2 | grep voiceit2 | awk '{print $11}') | tr "." "\n")
+version=$(echo $(curl -s https://api.github.com/repos/voiceittech/voiceIt2-perl/releases/latest | grep '"tag_name":' |sed -E ' s/.*"([^"]+)".*/\1/') | tr "." "\n")
 set -- $version
 major=$1
 minor=$2
