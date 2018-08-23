@@ -1,13 +1,4 @@
 #!/bin/bash
-mkdir -p CPAN/lib/voiceIt
-mv voiceIt2.pm CPAN/lib/voiceIt
-cd CPAN
-h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2
-cd voiceIt-voiceIt2
-perl Makefile.PL
-make dist
-ls
-# cpan-upload -u $PAUSEPERLUSERNAME:$PAUSEPERLPASSWORD 
 
 commit=$(git log -1 --pretty=%B | head -n 1)
 version=$(echo $(curl -s https://api.github.com/repos/voiceittech/voiceIt2-perl/releases/latest | grep '"tag_name":' |sed -E ' s/.*"([^"]+)".*/\1/') | tr "." "\n")
@@ -18,6 +9,16 @@ patch=$3
 
 if [[ $commit = *"RELEASE"* ]];
 then
+
+  mkdir -p CPAN/lib/voiceIt
+  mv voiceIt2.pm CPAN/lib/voiceIt
+  cd CPAN
+  h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2
+  cd voiceIt-voiceIt2
+  perl Makefile.PL
+  make dist
+  ls
+
   if [[ $commit = *"RELEASEMAJOR"* ]];
   then
     major=$(($major+1))
@@ -37,4 +38,8 @@ then
 
   version=$major'.'$minor'.'$patch
   echo $version
+  mv 'voiceIt-voiceIt2-0.01.tar.gz' 'voiceIt-voiceIt2-'$version'.tar.gz'
+  cpan-upload -u $PAUSEPERLUSERNAME:$PAUSEPERLPASSWORD 'voiceIt-voiceIt2-'$version'.tar.gz'
 fi
+
+
