@@ -258,6 +258,7 @@ sub createFaceEnrollment(){
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
+  print $reply->content();
   return $reply->content();
 }
 
