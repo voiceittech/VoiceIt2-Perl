@@ -160,11 +160,11 @@ sub deleteGroup(){
   return $reply->content();
 }
 
-sub getAllEnrollmentsForUser(){
+sub getAllPhrases(){
   shift;
-  my ($usrId)= @_;
+  my ($contentLanguage)= @_;
   my $ua = LWP::UserAgent->new();
-  my $request = GET $baseUrl.'/enrollments/'.$usrId;
+  my $request = GET $baseUrl.'/phrases/'.$contentLanguage;
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
@@ -182,14 +182,40 @@ sub getAllFaceEnrollmentsForUser(){
   return $reply->content();
 }
 
+sub getAllVoiceEnrollmentsForUser(){
+  shift;
+  my ($usrId)= @_;
+  my $ua = LWP::UserAgent->new();
+  my $request = GET $baseUrl.'/enrollments/voice/'.$usrId;
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+sub getAllVideoEnrollmentsForUser(){
+  shift;
+  my ($usrId)= @_;
+  my $ua = LWP::UserAgent->new();
+  my $request = GET $baseUrl.'/enrollments/video/'.$usrId;
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
 sub createVoiceEnrollment(){
   shift;
-  my ($usrId, $lang, $filePath) = @_;
+  my ($usrId, $lang, $phrase, $filePath) = @_;
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@createVoiceEnrollment";
+  }
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'/enrollments', Content_Type => 'form-data',  Content => [
+  my $request = POST $baseUrl.'/enrollments/voice', Content_Type => 'form-data',  Content => [
         recording => [$filePath],
         userId => $usrId,
         contentLanguage => $lang,
+        phrase => $phrase
     ];
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
@@ -199,12 +225,13 @@ sub createVoiceEnrollment(){
 
 sub createVoiceEnrollmentByUrl(){
   shift;
-  my ($usrId, $lang, $fileUrl) = @_;
+  my ($usrId, $lang,  $phrase, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'/enrollments/byUrl', Content_Type => 'form-data',  Content => [
+  my $request = POST $baseUrl.'/enrollments/voice/byUrl', Content_Type => 'form-data',  Content => [
         fileUrl => $fileUrl,
         userId => $usrId,
-        contentLanguage => $lang,
+        phrase => $phrase,
+        contentLanguage => $lang
     ];
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
@@ -220,11 +247,34 @@ sub createFaceEnrollment(){
   if($doBlink){
     $blink = $doBlink;
   }
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@createFaceEnrollment";
+  }
   my $request = POST $baseUrl.'/enrollments/face', Content_Type => 'form-data',  Content => [
         video => [$filePath],
         userId => $usrId,
         doBlinkDetection => $blink
     ];
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  print $reply->content();
+  return $reply->content();
+}
+
+sub createFaceEnrollmentByUrl(){
+  shift;
+  my $blink = 0;
+  my ($usrId, $fileUrl, $doBlink) = @_;
+  my $ua = LWP::UserAgent->new();
+  if($doBlink){
+    $blink = $doBlink;
+  }
+  my $request = POST $baseUrl.'/enrollments/face/byUrl', Content_Type => 'form-data', Content => [
+        fileUrl => $fileUrl,
+        userId => $usrId,
+        doBlinkDetection => $blink
+  ];
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
@@ -234,15 +284,19 @@ sub createFaceEnrollment(){
 sub createVideoEnrollment(){
   shift;
   my $blink = 0;
-  my ($usrId, $lang, $filePath, $doBlink) = @_;
+  my ($usrId, $lang,  $phrase,$filePath, $doBlink) = @_;
   my $ua = LWP::UserAgent->new();
   if($doBlink){
     $blink = $doBlink;
+  }
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@createVideoEnrollment";
   }
   my $request = POST $baseUrl.'/enrollments/video', Content_Type => 'form-data', Content => [
         video => [$filePath],
         userId => $usrId,
         contentLanguage => $lang,
+        phrase => $phrase,
         doBlinkDetection => $blink
   ];
   $request->header('platformId' => $platformId);
@@ -254,7 +308,7 @@ sub createVideoEnrollment(){
 sub createVideoEnrollmentByUrl(){
   shift;
   my $blink = 0;
-  my ($usrId, $lang, $fileUrl, $doBlink) = @_;
+  my ($usrId, $lang,  $phrase,$fileUrl, $doBlink) = @_;
   my $ua = LWP::UserAgent->new();
   if($doBlink){
     $blink = $doBlink;
@@ -263,6 +317,7 @@ sub createVideoEnrollmentByUrl(){
         fileUrl => $fileUrl,
         userId => $usrId,
         contentLanguage => $lang,
+        phrase => $phrase,
         doBlinkDetection => $blink
   ];
   $request->header('platformId' => $platformId);
@@ -282,6 +337,39 @@ sub deleteAllEnrollmentsForUser() {
   return $reply->content();
 }
 
+sub deleteAllVoiceEnrollmentsForUser() {
+  shift;
+  my ($usrId) = @_;
+  my $ua = LWP::UserAgent->new();
+  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/voice", Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+sub deleteAllFaceEnrollmentsForUser() {
+  shift;
+  my ($usrId) = @_;
+  my $ua = LWP::UserAgent->new();
+  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/face", Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+sub deleteAllVideoEnrollmentsForUser() {
+  shift;
+  my ($usrId) = @_;
+  my $ua = LWP::UserAgent->new();
+  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/video", Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
 sub deleteFaceEnrollment(){
   shift;
   my ($usrId, $faceEnrollmentId) = @_;
@@ -293,12 +381,23 @@ sub deleteFaceEnrollment(){
   return $reply->content();
 }
 
-
-sub deleteEnrollment(){
+sub deleteVoiceEnrollment(){
   shift;
-  my ($usrId, $enrollmentId) = @_;
+  my ($usrId, $voiceEnrollmentId) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = DELETE $baseUrl.'/enrollments/'.$usrId."/" . $enrollmentId, Content_Type => 'form-data';
+  my $request = DELETE $baseUrl.'/enrollments/voice/'.$usrId."/" . $voiceEnrollmentId, Content_Type => 'form-data';
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+
+sub deleteVideoEnrollment(){
+  shift;
+  my ($usrId, $videoEnrollmentId) = @_;
+  my $ua = LWP::UserAgent->new();
+  my $request = DELETE $baseUrl.'/enrollments/video/'.$usrId."/" . $videoEnrollmentId, Content_Type => 'form-data';
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
@@ -307,12 +406,16 @@ sub deleteEnrollment(){
 
 sub voiceVerification(){
   shift;
-  my ($usrId, $lang, $filePath) = @_;
+  my ($usrId, $lang,  $phrase,$filePath) = @_;
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@voiceVerification";
+  }
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'/verification', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification/voice', Content_Type => 'form-data', Content => [
         recording => [$filePath],
         userId => $usrId,
-        contentLanguage => $lang,
+        phrase => $phrase,
+        contentLanguage => $lang
   ];
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
@@ -322,12 +425,13 @@ sub voiceVerification(){
 
 sub voiceVerificationByUrl(){
   shift;
-  my ($usrId, $lang, $fileUrl) = @_;
+  my ($usrId, $lang,  $phrase,$fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'/verification/byUrl', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/verification/voice/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         userId => $usrId,
-        contentLanguage => $lang,
+        phrase => $phrase,
+        contentLanguage => $lang
   ];
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
@@ -343,8 +447,30 @@ sub faceVerification(){
   if($doBlink){
     $blink = $doBlink;
   }
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@faceVerification";
+  }
   my $request = POST $baseUrl.'/verification/face', Content_Type => 'form-data', Content => [
         video => [$filePath],
+        userId => $usrId,
+        doBlinkDetection => $blink
+  ];
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+sub faceVerificationByUrl(){
+  shift;
+  my $blink = 0;
+  my ($usrId, $fileUrl, $doBlink) = @_;
+  my $ua = LWP::UserAgent->new();
+  if($doBlink){
+    $blink = $doBlink;
+  }
+  my $request = POST $baseUrl.'/verification/face/byUrl', Content_Type => 'form-data', Content => [
+        fileUrl => $fileUrl,
         userId => $usrId,
         doBlinkDetection => $blink
   ];
@@ -357,7 +483,10 @@ sub faceVerification(){
 sub videoVerification(){
   shift;
   my $blink = 0;
-  my ($usrId, $lang, $filePath, $doBlink) = @_;
+  my ($usrId, $lang, $phrase, $filePath, $doBlink) = @_;
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@videoVerification";
+  }
   my $ua = LWP::UserAgent->new();
   if($doBlink){
     $blink = $doBlink;
@@ -365,6 +494,7 @@ sub videoVerification(){
   my $request = POST $baseUrl.'/verification/video', Content_Type => 'form-data', Content => [
         video => [$filePath],
         userId => $usrId,
+        phrase => $phrase,
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
@@ -378,7 +508,7 @@ sub videoVerification(){
 sub videoVerificationByUrl(){
   shift;
   my $blink = 0;
-  my ($usrId, $lang, $fileUrl, $doBlink) = @_;
+  my ($usrId, $lang, $phrase, $fileUrl, $doBlink) = @_;
   my $ua = LWP::UserAgent->new();
   if($doBlink){
     $blink = $doBlink;
@@ -386,6 +516,7 @@ sub videoVerificationByUrl(){
   my $request = POST $baseUrl.'/verification/video/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         userId => $usrId,
+        phrase => $phrase,
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
@@ -397,11 +528,15 @@ sub videoVerificationByUrl(){
 
 sub voiceIdentification(){
   shift;
-  my ($grpId, $lang, $filePath) = @_;
+  my ($grpId, $lang, $phrase,$filePath) = @_;
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@voiceIdentification";
+  }
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'/identification', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/identification/voice', Content_Type => 'form-data', Content => [
         recording => [$filePath],
         groupId => $grpId,
+        phrase => $phrase,
         contentLanguage => $lang,
   ];
   $request->header('platformId' => $platformId);
@@ -412,12 +547,54 @@ sub voiceIdentification(){
 
 sub voiceIdentificationByUrl(){
   shift;
-  my ($grpId, $lang, $fileUrl) = @_;
+  my ($grpId, $lang, $phrase, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
-  my $request = POST $baseUrl.'/identification/byUrl', Content_Type => 'form-data', Content => [
+  my $request = POST $baseUrl.'/identification/voice/byUrl', Content_Type => 'form-data', Content => [
         fileUrl => $fileUrl,
         groupId => $grpId,
+        phrase => $phrase,
         contentLanguage => $lang,
+  ];
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+sub faceIdentification(){
+  shift;
+  my $blink = 0;
+  my ($grpId, $filePath, $doBlink) = @_;
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@faceIdentification";
+  }
+  if($doBlink){
+    $blink = $doBlink;
+  }
+  my $ua = LWP::UserAgent->new();
+  my $request = POST $baseUrl.'/identification/face', Content_Type => 'form-data', Content => [
+        video => [$filePath],
+        groupId => $grpId,
+        doBlinkDetection => $blink
+  ];
+  $request->header('platformId' => $platformId);
+  $request->authorization_basic($apiKey, $apiToken);
+  my $reply = $ua->request($request);
+  return $reply->content();
+}
+
+sub faceIdentificationByUrl(){
+  shift;
+  my $blink = 0;
+  my ($grpId, $fileUrl, $doBlink) = @_;
+  my $ua = LWP::UserAgent->new();
+  if($doBlink){
+    $blink = $doBlink;
+  }
+  my $request = POST $baseUrl.'/identification/face/byUrl', Content_Type => 'form-data', Content => [
+        fileUrl => $fileUrl,
+        groupId => $grpId,
+        doBlinkDetection => $blink
   ];
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
@@ -428,7 +605,10 @@ sub voiceIdentificationByUrl(){
 sub videoIdentification(){
   shift;
   my $blink = 0;
-  my ($grpId, $lang, $filePath, $doBlink) = @_;
+  my ($grpId, $lang, $phrase, $filePath, $doBlink) = @_;
+  if (!(-e $filePath)) {
+    die "FileNotFound: No such file or directory \"".$filePath."\" \@videoIdentification";
+  }
   my $ua = LWP::UserAgent->new();
   if($doBlink){
     $blink = $doBlink;
@@ -436,6 +616,7 @@ sub videoIdentification(){
   my $request = POST $baseUrl.'/identification/video', Content_Type => 'form-data', Content => [
         video => [$filePath],
         groupId => $grpId,
+        phrase => $phrase,
         contentLanguage => $lang,
         doBlinkDetection => $blink
   ];
@@ -449,7 +630,7 @@ sub videoIdentification(){
 sub videoIdentificationByUrl(){
   shift;
   my $blink = 0;
-  my ($grpId, $lang, $fileUrl, $doBlink) = @_;
+  my ($grpId, $lang,  $phrase,$fileUrl, $doBlink) = @_;
   my $ua = LWP::UserAgent->new();
   if($doBlink){
     $blink = $doBlink;
@@ -458,6 +639,7 @@ sub videoIdentificationByUrl(){
         fileUrl => $fileUrl,
         groupId => $grpId,
         contentLanguage => $lang,
+        phrase => $phrase,
         doBlinkDetection => $blink
   ];
   $request->header('platformId' => $platformId);
