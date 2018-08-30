@@ -106,7 +106,7 @@ $json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never F
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $enrollmentId3 = $json->{id};
-$json = parse_json($myVoiceIt->getAllVideoEnrollmentsForUser($userId1));
+$json = parse_json($myVoiceIt->getAllVideoEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual(3, $json->{count}, __LINE__);
@@ -156,7 +156,7 @@ assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 #Delete all video enrollments
-$json = parse_json($myVoiceIt->deleteAllVideoEnrollmentsForUser($userId1));
+$json = parse_json($myVoiceIt->deleteAllVideoEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
@@ -278,7 +278,7 @@ assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $voiceEnrollmentId1 = $json->{id};
 
-$json = parse_json($myVoiceIt->getAllVoiceEnrollmentsForUser($userId1));
+$json = parse_json($myVoiceIt->getAllVoiceEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual(3, $json->{count}, __LINE__);
@@ -322,7 +322,7 @@ assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Delete all voice enrollments
-$json = parse_json($myVoiceIt->deleteAllVoiceEnrollmentsForUser($userId1));
+$json = parse_json($myVoiceIt->deleteAllVoiceEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
@@ -440,7 +440,7 @@ assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $faceEnrollmentId2 = $json->{faceEnrollmentId};
 
 # Get All Face Enrollments for User
-$json = parse_json($myVoiceIt->getAllFaceEnrollmentsForUser($userId1));
+$json = parse_json($myVoiceIt->getAllFaceEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual(2, $json->{count}, __LINE__);
@@ -480,7 +480,7 @@ assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Delete all video enrollments
-$json = parse_json($myVoiceIt->deleteAllFaceEnrollmentsForUser($userId1));
+$json = parse_json($myVoiceIt->deleteAllFaceEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
