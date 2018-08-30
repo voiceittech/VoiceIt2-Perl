@@ -171,7 +171,7 @@ sub getAllPhrases(){
   return $reply->content();
 }
 
-sub getAllFaceEnrollmentsForUser(){
+sub getAllFaceEnrollments(){
   shift;
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
@@ -182,7 +182,7 @@ sub getAllFaceEnrollmentsForUser(){
   return $reply->content();
 }
 
-sub getAllVoiceEnrollmentsForUser(){
+sub getAllVoiceEnrollments(){
   shift;
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
@@ -193,7 +193,7 @@ sub getAllVoiceEnrollmentsForUser(){
   return $reply->content();
 }
 
-sub getAllVideoEnrollmentsForUser(){
+sub getAllVideoEnrollments(){
   shift;
   my ($usrId)= @_;
   my $ua = LWP::UserAgent->new();
@@ -258,7 +258,6 @@ sub createFaceEnrollment(){
   $request->header('platformId' => $platformId);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
-  print $reply->content();
   return $reply->content();
 }
 
@@ -337,7 +336,7 @@ sub deleteAllEnrollmentsForUser() {
   return $reply->content();
 }
 
-sub deleteAllVoiceEnrollmentsForUser() {
+sub deleteAllVoiceEnrollments() {
   shift;
   my ($usrId) = @_;
   my $ua = LWP::UserAgent->new();
@@ -348,7 +347,7 @@ sub deleteAllVoiceEnrollmentsForUser() {
   return $reply->content();
 }
 
-sub deleteAllFaceEnrollmentsForUser() {
+sub deleteAllFaceEnrollments() {
   shift;
   my ($usrId) = @_;
   my $ua = LWP::UserAgent->new();
@@ -359,7 +358,7 @@ sub deleteAllFaceEnrollmentsForUser() {
   return $reply->content();
 }
 
-sub deleteAllVideoEnrollmentsForUser() {
+sub deleteAllVideoEnrollments() {
   shift;
   my ($usrId) = @_;
   my $ua = LWP::UserAgent->new();
