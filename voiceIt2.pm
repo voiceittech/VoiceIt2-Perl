@@ -325,7 +325,7 @@ sub createVideoEnrollmentByUrl(){
   return $reply->content();
 }
 
-sub deleteAllEnrollmentsForUser() {
+sub deleteAllEnrollments() {
   shift;
   my ($usrId) = @_;
   my $ua = LWP::UserAgent->new();
