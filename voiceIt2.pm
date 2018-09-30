@@ -160,7 +160,7 @@ sub deleteGroup(){
   return $reply->content();
 }
 
-sub getAllPhrases(){
+sub getPhrases(){
   shift;
   my ($contentLanguage)= @_;
   my $ua = LWP::UserAgent->new();
