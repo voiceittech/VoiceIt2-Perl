@@ -60,7 +60,7 @@ $json = parse_json($myVoiceIt->deleteGroup($groupId));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->getAllPhrases('en-US'));
+$json = parse_json($myVoiceIt->getPhrases('en-US'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
