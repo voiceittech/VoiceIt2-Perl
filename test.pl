@@ -85,7 +85,7 @@ getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnr
 getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen2.mov', './videoEnrollmentStephen2.mov');
 getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen3.mov', './videoEnrollmentStephen3.mov');
 eval {
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day', './videoEnrollmentArmaan1.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day', './notareeal.file'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -123,7 +123,7 @@ assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Verification
 eval {
-$json = parse_json($myVoiceIt->videoVerification($userId1, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmaa.mov'));
+$json = parse_json($myVoiceIt->videoVerification($userId1, 'en-US','Never Forget Tomorrow is a new day', './notareeal.file'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -137,7 +137,7 @@ assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Identification
 eval {
-$json = parse_json($myVoiceIt->videoIdentification($groupId, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmas.mov'));
+$json = parse_json($myVoiceIt->videoIdentification($groupId, 'en-US','Never Forget Tomorrow is a new day', './notareeal.file'));
 };
 if ($@) {
   my @exception = split(':', $@);
