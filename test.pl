@@ -85,7 +85,7 @@ getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnr
 getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen2.mov', './videoEnrollmentStephen2.mov');
 getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen3.mov', './videoEnrollmentStephen3.mov');
 eval {
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day', './videoEnrollmentArmaa.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day', './videoEnrollmentArmaan1.mov'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -94,15 +94,15 @@ if ($@) {
   die "Testing Failed";
 }
 
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day','./videoEnrollmentArmaan1.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day','./videoEnrollmentArmaan1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $enrollmentId1 = $json->{id};
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US','Never Forget Tomorrow is a new day', './videoEnrollmentArmaan2.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US','Never Forget Tomorrow is a new day', './videoEnrollmentArmaan2.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $enrollmentId2 = $json->{id};
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day','./videoEnrollmentArmaan3.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day','./videoEnrollmentArmaan3.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $enrollmentId3 = $json->{id};
@@ -110,20 +110,20 @@ $json = parse_json($myVoiceIt->getAllVideoEnrollments($userId1));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual(3, $json->{count}, __LINE__);
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId2, 'en-US', 'Never Forget Tomorrow is a new day','./videoEnrollmentStephen1.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId2, 'en-US', 'Never Forget Tomorrow is a new day','./videoEnrollmentStephen1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId2, 'en-US','Never Forget Tomorrow is a new day', './videoEnrollmentStephen2.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId2, 'en-US','Never Forget Tomorrow is a new day', './videoEnrollmentStephen2.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
-$json = parse_json($myVoiceIt->createVideoEnrollment($userId2, 'en-US','Never Forget Tomorrow is a new day', './videoEnrollmentStephen3.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollment($userId2, 'en-US','Never Forget Tomorrow is a new day', './videoEnrollmentStephen3.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 
 # Video Verification
 eval {
-$json = parse_json($myVoiceIt->videoVerification($userId1, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmaa.mov', 0));
+$json = parse_json($myVoiceIt->videoVerification($userId1, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmaa.mov'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -131,13 +131,13 @@ if ($@) {
 } else {
   die "Testing Failed";
 }
-$json = parse_json($myVoiceIt->videoVerification($userId1, 'en-US', 'Never Forget Tomorrow is a new day','./videoVerificationArmaan1.mov', 0));
+$json = parse_json($myVoiceIt->videoVerification($userId1, 'en-US', 'Never Forget Tomorrow is a new day','./videoVerificationArmaan1.mov'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Identification
 eval {
-$json = parse_json($myVoiceIt->videoIdentification($groupId, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmas.mov', 0));
+$json = parse_json($myVoiceIt->videoIdentification($groupId, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmas.mov'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -145,7 +145,7 @@ if ($@) {
 } else {
   die "Testing Failed";
 }
-$json = parse_json($myVoiceIt->videoIdentification($groupId, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmaan1.mov', 0));
+$json = parse_json($myVoiceIt->videoIdentification($groupId, 'en-US','Never Forget Tomorrow is a new day', './videoVerificationArmaan1.mov'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual($userId1, $json->{userId}, __LINE__);
@@ -183,37 +183,37 @@ $myVoiceIt->addUserToGroup($groupId, $userId2);
 
 
 # Video Enrollment By URL
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentArmaan1.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentArmaan1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentArmaan2.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentArmaan2.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentArmaan3.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentArmaan3.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen1.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen2.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen2.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen3.mov', 0));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentStephen3.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Verification By URL
-$json = parse_json($myVoiceIt->videoVerificationByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationArmaan1.mov', 0));
+$json = parse_json($myVoiceIt->videoVerificationByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationArmaan1.mov'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Identification By URL
-$json = parse_json($myVoiceIt->videoIdentificationByUrl($groupId, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationArmaan1.mov', 0));
+$json = parse_json($myVoiceIt->videoIdentificationByUrl($groupId, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationArmaan1.mov'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual($userId1, $json->{userId}, __LINE__);
@@ -417,7 +417,7 @@ getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnr
 getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceVerificationArmaan1.mp4', './faceVerificationArmaan1.mp4');
 
 eval {
-$json = parse_json($myVoiceIt->createFaceEnrollment($userId1, './faceEnrollmentArmaands.mp4', 0));
+$json = parse_json($myVoiceIt->createFaceEnrollment($userId1, './faceEnrollmentArmaands.mp4'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -425,16 +425,16 @@ if ($@) {
 } else {
   die "Testing Failed";
 }
-$json = parse_json($myVoiceIt->createFaceEnrollment($userId1, './faceEnrollmentArmaan1.mp4', 0));
+$json = parse_json($myVoiceIt->createFaceEnrollment($userId1, './faceEnrollmentArmaan1.mp4'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createFaceEnrollmentByUrl($userId1, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceEnrollmentArmaan1.mp4', 0));
+$json = parse_json($myVoiceIt->createFaceEnrollmentByUrl($userId1, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceEnrollmentArmaan1.mp4'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $faceEnrollmentId1 = $json->{faceEnrollmentId};
 
-$json = parse_json($myVoiceIt->createFaceEnrollment($userId2, './faceEnrollmentStephen1.mov', 0));
+$json = parse_json($myVoiceIt->createFaceEnrollment($userId2, './faceEnrollmentStephen1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $faceEnrollmentId2 = $json->{faceEnrollmentId};
@@ -447,7 +447,7 @@ assertEqual(2, $json->{count}, __LINE__);
 
 # Face Verification
 eval {
-$json = parse_json($myVoiceIt->faceVerification($userId1, './faceVerificationArma.mp4', 0));
+$json = parse_json($myVoiceIt->faceVerification($userId1, './faceVerificationArma.mp4'));
 };
 if ($@) {
   my @exception = split(':', $@);
@@ -456,11 +456,11 @@ if ($@) {
   die "Testing Failed";
 }
 
-$json = parse_json($myVoiceIt->faceVerification($userId1, './faceVerificationArmaan1.mp4', 0));
+$json = parse_json($myVoiceIt->faceVerification($userId1, './faceVerificationArmaan1.mp4'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->faceVerificationByUrl($userId1, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceVerificationArmaan1.mp4', 0));
+$json = parse_json($myVoiceIt->faceVerificationByUrl($userId1, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceVerificationArmaan1.mp4'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
