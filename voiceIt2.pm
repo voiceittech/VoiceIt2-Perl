@@ -241,7 +241,6 @@ sub createVoiceEnrollmentByUrl(){
 
 sub createFaceEnrollment(){
   shift;
-  my $blink = 0;
   my ($usrId, $filePath) = @_;
   my $ua = LWP::UserAgent->new();
   if (!(-e $filePath)) {
@@ -259,7 +258,6 @@ sub createFaceEnrollment(){
 
 sub createFaceEnrollmentByUrl(){
   shift;
-  my $blink = 0;
   my ($usrId, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = POST $baseUrl.'/enrollments/face/byUrl', Content_Type => 'form-data', Content => [
@@ -274,7 +272,6 @@ sub createFaceEnrollmentByUrl(){
 
 sub createVideoEnrollment(){
   shift;
-  my $blink = 0;
   my ($usrId, $lang,  $phrase,$filePath) = @_;
   my $ua = LWP::UserAgent->new();
   if (!(-e $filePath)) {
@@ -294,7 +291,6 @@ sub createVideoEnrollment(){
 
 sub createVideoEnrollmentByUrl(){
   shift;
-  my $blink = 0;
   my ($usrId, $lang,  $phrase,$fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = POST $baseUrl.'/enrollments/video/byUrl', Content_Type => 'form-data', Content => [
@@ -424,7 +420,6 @@ sub voiceVerificationByUrl(){
 
 sub faceVerification(){
   shift;
-  my $blink = 0;
   my ($usrId, $filePath) = @_;
   my $ua = LWP::UserAgent->new();
   if (!(-e $filePath)) {
@@ -442,7 +437,6 @@ sub faceVerification(){
 
 sub faceVerificationByUrl(){
   shift;
-  my $blink = 0;
   my ($usrId, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = POST $baseUrl.'/verification/face/byUrl', Content_Type => 'form-data', Content => [
@@ -457,7 +451,6 @@ sub faceVerificationByUrl(){
 
 sub videoVerification(){
   shift;
-  my $blink = 0;
   my ($usrId, $lang, $phrase, $filePath) = @_;
   if (!(-e $filePath)) {
     die "FileNotFound: No such file or directory \"".$filePath."\" \@videoVerification";
@@ -478,7 +471,6 @@ sub videoVerification(){
 
 sub videoVerificationByUrl(){
   shift;
-  my $blink = 0;
   my ($usrId, $lang, $phrase, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = POST $baseUrl.'/verification/video/byUrl', Content_Type => 'form-data', Content => [
@@ -530,7 +522,6 @@ sub voiceIdentificationByUrl(){
 
 sub faceIdentification(){
   shift;
-  my $blink = 0;
   my ($grpId, $filePath) = @_;
   if (!(-e $filePath)) {
     die "FileNotFound: No such file or directory \"".$filePath."\" \@faceIdentification";
@@ -548,7 +539,6 @@ sub faceIdentification(){
 
 sub faceIdentificationByUrl(){
   shift;
-  my $blink = 0;
   my ($grpId, $fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = POST $baseUrl.'/identification/face/byUrl', Content_Type => 'form-data', Content => [
@@ -563,7 +553,6 @@ sub faceIdentificationByUrl(){
 
 sub videoIdentification(){
   shift;
-  my $blink = 0;
   my ($grpId, $lang, $phrase, $filePath) = @_;
   if (!(-e $filePath)) {
     die "FileNotFound: No such file or directory \"".$filePath."\" \@videoIdentification";
@@ -584,7 +573,6 @@ sub videoIdentification(){
 
 sub videoIdentificationByUrl(){
   shift;
-  my $blink = 0;
   my ($grpId, $lang,  $phrase,$fileUrl) = @_;
   my $ua = LWP::UserAgent->new();
   my $request = POST $baseUrl.'/identification/video/byUrl', Content_Type => 'form-data', Content => [
