@@ -6,6 +6,14 @@ my $self;
 
 my $myVoiceIt = voiceIt2->new($ENV{'VIAPIKEY'}, $ENV{'VIAPITOKEN'});
 
+# Test Webhook
+$myVoiceIt->addNotificationUrl('https://voiceit.io');
+assertEqual('?notificationURL=https%3A%2F%2Fvoiceit.io', $myVoiceIt->{notificationUrl}, __LINE__);
+$myVoiceIt->removeNotificationUrl();
+assertEqual('', $myVoiceIt->{notificationUrl}, __LINE__);
+
+print "****Webhooks Tests All Passed ****\n";
+
 # Test Basics
 my $json = parse_json($myVoiceIt->createUser());
 assertEqual(201, $json->{status}, __LINE__);
