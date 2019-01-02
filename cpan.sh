@@ -47,12 +47,7 @@ then
   echo "ls"
   ls
   # cd ../../
-  cpan install CPAN-Uploader-0.103013::cpan-upload
-  # curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases
-  # sleep 5
-  # echo "which cpan-upload"
-  # which cpan-upload
-  # echo "GITHUB SUCCESS"
+  cpan install CPAN-Uploader::cpan-upload
+  curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases
   cpan-upload -u $PAUSEPERLUSERNAME -p $PAUSEPERLPASSWORD 'voiceIt-voiceIt2-'$version'.tar.gz'
-  echo "PERL PAUSE SUCCESS"
 fi
