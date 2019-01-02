@@ -28,6 +28,7 @@ then
   fi
 
   version=$major'.'$minor'.'$patch
+  echo $version
   mkdir -p CPAN/lib/voiceIt
   mv voiceIt2.pm CPAN/lib/voiceIt
   cd CPAN
