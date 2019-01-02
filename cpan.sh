@@ -10,14 +10,6 @@ patch=$3
 if [[ $commit = *"RELEASE"* ]];
 then
 
-  mkdir -p CPAN/lib/voiceIt
-  mv voiceIt2.pm CPAN/lib/voiceIt
-  cd CPAN
-  h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2
-  cd voiceIt-voiceIt2
-  perl Makefile.PL
-  make dist
-
   if [[ $commit = *"RELEASEMAJOR"* ]];
   then
     major=$(($major+1))
@@ -36,18 +28,25 @@ then
   fi
 
   version=$major'.'$minor'.'$patch
-  # mv 'voiceIt-voiceIt2-0.01.tar.gz' 'voiceIt-voiceIt2-'$version'.tar.gz'
-  mkdir voiceIt-voiceIt2 && cd voiceIt-voiceIt2
-  cp '../voiceIt-voiceIt2-0.01.tar.gz' .
-  tar -xvzf 'voiceIt-voiceIt2-0.01.tar.gz'
-  rm 'voiceIt-voiceIt2-0.01.tar.gz'
-  mv 'voiceIt-voiceIt2-0.01' 'voiceIt-voiceIt2-'$version''
-  tar -zcvf 'voiceIt-voiceIt2-'$version'.tar.gz' 'voiceIt-voiceIt2-'$version''
-  cp 'voiceIt-voiceIt2-'$version'.tar.gz' ..
-  cd 'voiceIt-voiceIt2-'$version''
+  mkdir -p CPAN/lib/voiceIt
+  mv voiceIt2.pm CPAN/lib/voiceIt
+  cd CPAN
+  h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2 -v $version
+  cd voiceIt-voiceIt2
+  perl Makefile.PL
+  make dist
+
+  # mkdir voiceIt-voiceIt2 && cd voiceIt-voiceIt2
+  # cp '../voiceIt-voiceIt2-0.01.tar.gz' .
+  # tar -xvzf 'voiceIt-voiceIt2-0.01.tar.gz'
+  # rm 'voiceIt-voiceIt2-0.01.tar.gz'
+  # mv 'voiceIt-voiceIt2-0.01' 'voiceIt-voiceIt2-'$version''
+  # tar -zcvf 'voiceIt-voiceIt2-'$version'.tar.gz' 'voiceIt-voiceIt2-'$version''
+  # cp 'voiceIt-voiceIt2-'$version'.tar.gz' ..
+  # cd 'voiceIt-voiceIt2-'$version''
   echo "ls"
   ls
-  cd ../../
+  # cd ../../
   curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/voiceit2-perl/releases
   cpan-upload -u $PAUSEPERLUSERNAME -p $PAUSEPERLPASSWORD 'voiceIt-voiceIt2-'$version'.tar.gz'
 fi
