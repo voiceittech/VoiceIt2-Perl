@@ -54,6 +54,6 @@ then
   # echo "which cpan-upload"
   which cpan-upload
   # echo "GITHUB SUCCESS"
-  cpan-upload --user $PAUSEPERLUSERNAME --password $PAUSEPERLPASSWORD --directory 'voiceIt-voiceIt2-'$version 'voiceIt-voiceIt2-'$version'.tar.gz'
+  cpan-upload -u $PAUSEPERLUSERNAME -p $PAUSEPERLPASSWORD -d 'voiceIt-voiceIt2-'$version 'voiceIt-voiceIt2-'$version'.tar.gz'
   echo "PERL PAUSE SUCCESS"
 fi
