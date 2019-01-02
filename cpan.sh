@@ -29,32 +29,18 @@ then
 
   version=$major'.'$minor'.'$patch
   echo $version
-  mkdir -p CPAN/lib/voiceIt
-  mv voiceIt2.pm CPAN/lib/voiceIt
-  cd CPAN
-  h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2 -v $version
-  cd voiceIt-voiceIt2
-  perl Makefile.PL
-  make dist
+  # mkdir -p CPAN/lib/voiceIt
+  # mv voiceIt2.pm CPAN/lib/voiceIt
+  # cd CPAN
+  # h2xs -AX --skip-exporter --use-new-tests voiceIt::voiceIt2 -v $version
+  # cd voiceIt-voiceIt2
+  # perl Makefile.PL
+  # make dist
 
-  # mkdir voiceIt-voiceIt2 && cd voiceIt-voiceIt2
-  # cp '../voiceIt-voiceIt2-0.01.tar.gz' .
-  # tar -xvzf 'voiceIt-voiceIt2-0.01.tar.gz'
-  # rm 'voiceIt-voiceIt2-0.01.tar.gz'
-  # mv 'voiceIt-voiceIt2-0.01' 'voiceIt-voiceIt2-'$version''
-  # tar -zcvf 'voiceIt-voiceIt2-'$version'.tar.gz' 'voiceIt-voiceIt2-'$version''
-  # cp 'voiceIt-voiceIt2-'$version'.tar.gz' ..
-  # cd 'voiceIt-voiceIt2-'$version''
-  echo "ls"
-  ls
-  # cd ../../
-  cpan install CPAN-Uploader-0.103013::cpan-upload
-  # perl -MCPAN -e 'install RJBS::CPAN-Uploader-0.103013::cpan-upload'
-  # curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases
-  # sleep 5
-  # echo "which cpan-upload"
-  which cpan-upload
-  # echo "GITHUB SUCCESS"
-  cpan-upload -u $PAUSEPERLUSERNAME -p $PAUSEPERLPASSWORD -d 'voiceIt-voiceIt2-'$version 'voiceIt-voiceIt2-'$version'.tar.gz'
-  echo "PERL PAUSE SUCCESS"
+  # echo "ls"
+  # ls
+  # cpan install CPAN-Uploader-0.103013::cpan-upload
+  # which cpan-upload
+  # cpan-upload -u $PAUSEPERLUSERNAME -p $PAUSEPERLPASSWORD -d 'voiceIt-voiceIt2-'$version 'voiceIt-voiceIt2-'$version'.tar.gz'
+  # echo "PERL PAUSE SUCCESS"
 fi
