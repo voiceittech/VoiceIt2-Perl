@@ -7,6 +7,9 @@ set -- $version
 major=$1
 minor=$2
 patch=$3
+echo'major='$major
+echo'minor='$minor
+echo'patch='$patch
 
 if [[ $commit = *"RELEASE"* ]];
 then
