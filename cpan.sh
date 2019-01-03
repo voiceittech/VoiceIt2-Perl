@@ -26,8 +26,9 @@ then
     exit 1
   fi
 
-  version=$major'.'$minor'
-  echo 'new version='$major'.'$minor'
+  version=$major'.'$minor
+  echo 'new version='$major'.'$minor
+
   # mkdir -p CPAN/lib/voiceIt
   # cp voiceIt2.pm CPAN/lib/voiceIt
   # cd CPAN
