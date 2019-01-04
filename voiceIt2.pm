@@ -601,13 +601,21 @@ sub createGroup(){
 
   sub createUserToken() {
     shift;
-    my ($userId) = @_;
+    my ($userId, $timeOut) = @_;
     my $ua = LWP::UserAgent->new();
-    my $request = POST $baseUrl.'/users/'.$userId.'/token'.$self->{notificationUrl};
-    $request->header('platformId' => $platformId);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
+    if ($self->{notificationUrl} == "") {
+      my $request = POST $baseUrl.'/users/'.$userId.'/token?timeOut='.$timeOut;
+      $request->header('platformId' => $platformId);
+      $request->authorization_basic($apiKey, $apiToken);
+      my $reply = $ua->request($request);
+      return $reply->content();
+    } else {
+      my $request = POST $baseUrl.'/users/'.$userId.'/token'.$self->{notificationUrl}.'&timeOut='.$timeOut;
+      $request->header('platformId' => $platformId);
+      $request->authorization_basic($apiKey, $apiToken);
+      my $reply = $ua->request($request);
+      return $reply->content();
+    }
   }
 
 1;

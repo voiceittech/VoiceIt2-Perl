@@ -60,7 +60,7 @@ $json = parse_json($myVoiceIt->removeUserFromGroup($groupId, $userId));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createUserToken($userId));
+$json = parse_json($myVoiceIt->createUserToken($userId, 5));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
