@@ -8,7 +8,7 @@ install:
   - cpan install JSON::Parse
 script: perl test.pl
 after_success:
-  - ./cpan.sh
+  - ./release.sh
   - ./email.sh
 notifications:
   slack:
