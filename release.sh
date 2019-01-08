@@ -42,7 +42,7 @@ then
     echo "Patch release not available in Perl due to the expected behavior used in h2xs" 1>&2
     exit 1
   else
-    echo "Must specify RELEASEMAJOR, RELEASEMINOR, or RELEASEPATCH in the title." 1>&2
+    echo "Must specify RELEASEMAJOR or RELEASEMINOR in the title." 1>&2
     exit 1
   fi
 
