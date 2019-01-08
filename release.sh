@@ -7,8 +7,6 @@ minor=$2
 wrapperplatformversion=$(cat ~/platformVersion)
 reponame=$(basename $(git remote get-url origin) | sed 's/.\{4\}$//')
 
-echo 'old version='$major'.'$minor
-
 if [[ $commit = *"RELEASE"* ]];
 then
 
@@ -32,10 +30,12 @@ then
 
   if [[ $commit = *"RELEASEMAJOR"* ]];
   then
+    releasetype="RELEASEMAJOR"
     major=$(($major+1))
     minor=0
   elif [[ $commit = *"RELEASEMINOR"* ]];
   then
+    releasetype="RELEASEMINOR"
     minor=$(($minor+1))
   elif [[ $commit = *"RELEASEPATCH"* ]];
   then

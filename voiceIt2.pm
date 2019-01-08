@@ -13,7 +13,7 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.2';
+my $platformVersion = '3.15';
 use strict;
 
   sub new {
