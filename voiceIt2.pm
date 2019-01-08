@@ -13,12 +13,14 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
+my $platformVersion = '3.2';
 use strict;
 
   sub new {
     my $package = shift;
     ($apiKey, $apiToken) = @_;
     $self = bless({apiKey => $apiKey, apiToken => $apiToken}, $package);
+    $self->{platformVersion} = '3.2';
     return $self;
   }
 
@@ -37,6 +39,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/users'.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -47,6 +50,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = POST $baseUrl.'/users'.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -58,6 +62,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/users/'.$usrId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -69,6 +74,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/users/'.$usrId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -80,6 +86,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/users/'.$usrId.'/groups'.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -90,6 +97,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/groups'.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -102,6 +110,7 @@ use strict;
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/groups/'.$groupId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -113,6 +122,7 @@ sub groupExists(){
   my $ua = LWP::UserAgent->new();
   my $request = GET $baseUrl.'/groups/'.$groupId.'/exists'.$self->{notificationUrl};
   $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -126,6 +136,7 @@ sub createGroup(){
       description => $des
   ];
   $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
   $request->authorization_basic($apiKey, $apiToken);
   my $reply = $ua->request($request);
   return $reply->content();
@@ -141,6 +152,7 @@ sub createGroup(){
           userId => $usrId,
       ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -156,6 +168,7 @@ sub createGroup(){
           userId => $usrId,
       ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -167,6 +180,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/groups/'.$grpId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -178,6 +192,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/phrases/'.$contentLanguage.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -189,6 +204,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/enrollments/face/'.$usrId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -200,6 +216,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/enrollments/voice/'.$usrId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -211,6 +228,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = GET $baseUrl.'/enrollments/video/'.$usrId.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -230,6 +248,7 @@ sub createGroup(){
           phrase => $phrase
       ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -246,6 +265,7 @@ sub createGroup(){
           contentLanguage => $lang
       ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -263,6 +283,7 @@ sub createGroup(){
           userId => $usrId
       ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -277,6 +298,7 @@ sub createGroup(){
           userId => $usrId
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -296,6 +318,7 @@ sub createGroup(){
           phrase => $phrase
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -312,6 +335,7 @@ sub createGroup(){
           phrase => $phrase
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -323,6 +347,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/all'.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -334,6 +359,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/voice'.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -345,6 +371,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/face'.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -356,6 +383,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/video', Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -367,6 +395,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/face/'.$usrId.'/'.$faceEnrollmentId.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -378,6 +407,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/voice/'.$usrId.'/'.$voiceEnrollmentId.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -390,6 +420,7 @@ sub createGroup(){
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/video/'.$usrId.'/'.$videoEnrollmentId.$self->{notificationUrl}.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -409,6 +440,7 @@ sub createGroup(){
           contentLanguage => $lang
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -425,6 +457,7 @@ sub createGroup(){
           contentLanguage => $lang
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -442,6 +475,7 @@ sub createGroup(){
           userId => $usrId
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -456,6 +490,7 @@ sub createGroup(){
           userId => $usrId
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -475,6 +510,7 @@ sub createGroup(){
           contentLanguage => $lang
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -492,6 +528,7 @@ sub createGroup(){
           contentLanguage => $lang
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -511,6 +548,7 @@ sub createGroup(){
           contentLanguage => $lang,
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -527,6 +565,7 @@ sub createGroup(){
           contentLanguage => $lang,
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -544,6 +583,7 @@ sub createGroup(){
           groupId => $grpId
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -558,6 +598,7 @@ sub createGroup(){
           groupId => $grpId
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -577,6 +618,7 @@ sub createGroup(){
           contentLanguage => $lang
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -594,6 +636,7 @@ sub createGroup(){
           phrase => $phrase
     ];
     $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
     my $reply = $ua->request($request);
     return $reply->content();
@@ -603,19 +646,12 @@ sub createGroup(){
     shift;
     my ($userId, $timeOut) = @_;
     my $ua = LWP::UserAgent->new();
-    if ($self->{notificationUrl} == "") {
-      my $request = POST $baseUrl.'/users/'.$userId.'/token?timeOut='.$timeOut;
-      $request->header('platformId' => $platformId);
-      $request->authorization_basic($apiKey, $apiToken);
-      my $reply = $ua->request($request);
-      return $reply->content();
-    } else {
-      my $request = POST $baseUrl.'/users/'.$userId.'/token'.$self->{notificationUrl}.'&timeOut='.$timeOut;
-      $request->header('platformId' => $platformId);
-      $request->authorization_basic($apiKey, $apiToken);
-      my $reply = $ua->request($request);
-      return $reply->content();
-    }
+    my $request = POST $baseUrl.'/users/'.$userId.'/token?timeOut='.$timeOut;
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
   }
 
 1;

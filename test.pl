@@ -8,6 +8,13 @@ my $myVoiceIt = voiceIt2->new($ENV{'VIAPIKEY'}, $ENV{'VIAPITOKEN'});
 
 # Test Webhook
 $myVoiceIt->addNotificationUrl('https://voiceit.io');
+if ($ENV{'BOXFUSE_ENV'} == 'voiceittest') {
+  my $filename = $ENV{'HOME'}.'/platformVersion';
+  open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
+  print $fh $myVoiceIt->{platformVersion};
+  close $fh;
+}
+
 assertEqual('?notificationURL=https%3A%2F%2Fvoiceit.io', $myVoiceIt->{notificationUrl}, __LINE__);
 $myVoiceIt->removeNotificationUrl();
 assertEqual('', $myVoiceIt->{notificationUrl}, __LINE__);
