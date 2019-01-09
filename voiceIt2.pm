@@ -644,9 +644,9 @@ sub createGroup(){
 
   sub createUserToken() {
     shift;
-    my ($userId, $timeOut) = @_;
+    my ($userId, $secondsToTimeout) = @_;
     my $ua = LWP::UserAgent->new();
-    my $request = POST $baseUrl.'/users/'.$userId.'/token?timeOut='.$timeOut;
+    my $request = POST $baseUrl.'/users/'.$userId.'/token?timeOut='.$secondsToTimeout;
     $request->header('platformId' => $platformId);
     $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
