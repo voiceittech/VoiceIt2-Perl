@@ -4,6 +4,8 @@ version=$(echo $(curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -s https://api.github.c
 set -- $version
 major=$1
 minor=$2
+echo "cat ~/platformVersion"
+cat ~/platformVersion
 wrapperplatformversion=$(cat ~/platformVersion)
 reponame=$(basename $(git remote get-url origin) | sed 's/.\{4\}$//')
 
