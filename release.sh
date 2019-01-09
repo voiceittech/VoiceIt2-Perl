@@ -39,6 +39,17 @@ then
     minor=$(($minor+1))
   elif [[ $commit = *"RELEASEPATCH"* ]];
   then
+    curl -X POST -H 'Content-type: application/json' --data '{
+      "icon_url": "https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/TravisCI-Mascot-1.png",
+      "username": "Release Wrapper Gate",
+        "attachments": [
+            {
+                "text": "Packaging '$reponame' failed. RELEASEPATCH is not a valid option for '$reponame' in the commit title",
+                "color": "danger"
+            }
+        ]
+    }' 'https://hooks.slack.com/services/'$SLACKPARAM1'/'$SLACKPARAM2'/'$SLACKPARAM3
+    echo "Must specify RELEASEMAJOR or RELEASEMINOR in the title." 1>&2
     echo "Patch release not available in Perl due to the expected behavior used in h2xs" 1>&2
     exit 1
   else
@@ -47,7 +58,7 @@ then
       "username": "Release Wrapper Gate",
         "attachments": [
             {
-                "text": "Packaging '$reponame' failed. You need to specify RELEASEMAJOR, RELEASEMINOR, or RELEASEPATCH in the commit title",
+                "text": "Packaging '$reponame' failed. You need to specify RELEASEMAJOR or RELEASEMINOR in the commit title",
                 "color": "danger"
             }
         ]
