@@ -13,14 +13,13 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '';
+my $platformVersion = '3.16';
 use strict;
 
   sub new {
     my $package = shift;
     ($apiKey, $apiToken) = @_;
     $self = bless({apiKey => $apiKey, apiToken => $apiToken}, $package);
-    $self->{platformVersion} = '3.15';
     return $self;
   }
 
