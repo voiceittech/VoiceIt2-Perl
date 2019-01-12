@@ -9,8 +9,7 @@ use HTTP::Request::Common qw(GET);
 use URI::Escape;
 
 my $self;
-# my $baseUrl = 'https://api.voiceit.io';
-my $baseUrl = 'http://localhost:80';
+my $baseUrl = 'https://api.voiceit.io';
 my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
