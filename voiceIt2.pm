@@ -1,5 +1,6 @@
 package voiceIt2;
 
+use strict;
 require LWP::UserAgent;
 use HTTP::Request::Common qw(POST);
 use HTTP::Request::Common qw(DELETE);
@@ -8,19 +9,24 @@ use HTTP::Request::Common qw(GET);
 use URI::Escape;
 
 my $self;
-my $baseUrl = 'https://api.voiceit.io';
+# my $baseUrl = 'https://api.voiceit.io';
+my $baseUrl = 'http://localhost:80';
 my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
 my $platformVersion = '3.16';
-use strict;
 
   sub new {
     my $package = shift;
     ($apiKey, $apiToken) = @_;
     $self = bless({apiKey => $apiKey, apiToken => $apiToken}, $package);
     return $self;
+  }
+
+  sub getPlatformVersion() {
+    shift;
+    return $platformVersion;
   }
 
   sub addNotificationUrl() {

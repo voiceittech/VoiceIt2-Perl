@@ -11,7 +11,7 @@ $myVoiceIt->addNotificationUrl('https://voiceit.io');
 if ($ENV{'BOXFUSE_ENV'} == 'voiceittest') {
   my $filename = $ENV{'HOME'}.'/platformVersion';
   open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
-  print $fh $myVoiceIt->{platformVersion};
+  print $fh $myVoiceIt->getPlatformVersion();
   close $fh;
 }
 
