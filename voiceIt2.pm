@@ -14,7 +14,7 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.16';
+my $platformVersion = '3.17';
 
   sub new {
     my $package = shift;
