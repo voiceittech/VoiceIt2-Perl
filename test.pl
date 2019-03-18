@@ -71,6 +71,10 @@ $json = parse_json($myVoiceIt->createUserToken($userId, 5));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
+$json = parse_json($myVoiceIt->expireUserTokens($userId));
+assertEqual(201, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+
 $json = parse_json($myVoiceIt->deleteUser($userId));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);

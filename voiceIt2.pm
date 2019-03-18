@@ -14,7 +14,7 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.17';
+my $platformVersion = '3.18';
 
   sub new {
     my $package = shift;
@@ -651,6 +651,18 @@ sub createGroup(){
     my ($userId, $secondsToTimeout) = @_;
     my $ua = LWP::UserAgent->new();
     my $request = POST $baseUrl.'/users/'.$userId.'/token?timeOut='.$secondsToTimeout;
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
+  }
+
+  sub expireUserTokens() {
+    shift;
+    my ($userId) = @_;
+    my $ua = LWP::UserAgent->new();
+    my $request = POST $baseUrl.'/users/'.$userId.'/expireTokens';
     $request->header('platformId' => $platformId);
     $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
