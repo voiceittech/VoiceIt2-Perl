@@ -1,7 +1,7 @@
 require './voiceIt2.pm';
 use JSON::Parse 'parse_json';
 use LWP::Simple;
-print "****Started Testing**** \n";
+print "**** Started Testing ****\n";
 my $self;
 
 my $myVoiceIt = voiceIt2->new($ENV{'VIAPIKEY'}, $ENV{'VIAPITOKEN'});
@@ -19,7 +19,7 @@ assertEqual('?notificationURL=https%3A%2F%2Fvoiceit.io', $myVoiceIt->{notificati
 $myVoiceIt->removeNotificationUrl();
 assertEqual('', $myVoiceIt->{notificationUrl}, __LINE__);
 
-print "****Webhooks Tests All Passed ****\n";
+print "**** Webhooks Tests All Passed ****\n";
 
 # Test Basics
 my $json = parse_json($myVoiceIt->createUser());
@@ -87,7 +87,7 @@ $json = parse_json($myVoiceIt->getPhrases('en-US'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-print "****Basic Tests All Passed ****\n";
+print "**** Basic Tests All Passed ****\n";
 
 # Test Video
 $json = parse_json($myVoiceIt->createUser());
@@ -100,13 +100,13 @@ $myVoiceIt->addUserToGroup($groupId, $userId1);
 $myVoiceIt->addUserToGroup($groupId, $userId2);
 
 # Video Enrollments
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentB1.mov', './videoEnrollmentB1.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentB2.mov', './videoEnrollmentB2.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentB3.mov', './videoEnrollmentB3.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationB1.mov', './videoVerificationB1.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC1.mov', './videoEnrollmentC1.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC2.mov', './videoEnrollmentC2.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC3.mov', './videoEnrollmentC3.mov');
+getstore('https://drive.voiceit.io/files/videoEnrollmentB1.mov', './videoEnrollmentB1.mov');
+getstore('https://drive.voiceit.io/files/videoEnrollmentB2.mov', './videoEnrollmentB2.mov');
+getstore('https://drive.voiceit.io/files/videoEnrollmentB3.mov', './videoEnrollmentB3.mov');
+getstore('https://drive.voiceit.io/files/videoVerificationB1.mov', './videoVerificationB1.mov');
+getstore('https://drive.voiceit.io/files/videoEnrollmentC1.mov', './videoEnrollmentC1.mov');
+getstore('https://drive.voiceit.io/files/videoEnrollmentC2.mov', './videoEnrollmentC2.mov');
+getstore('https://drive.voiceit.io/files/videoEnrollmentC3.mov', './videoEnrollmentC3.mov');
 eval {
 $json = parse_json($myVoiceIt->createVideoEnrollment($userId1, 'en-US', 'Never Forget Tomorrow is a new day', './notareeal.file'));
 };
@@ -206,37 +206,37 @@ $myVoiceIt->addUserToGroup($groupId, $userId2);
 
 
 # Video Enrollment By URL
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentB1.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/videoEnrollmentB1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentB2.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/videoEnrollmentB2.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentB3.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/videoEnrollmentB3.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC1.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/videoEnrollmentC1.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC2.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/videoEnrollmentC2.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC3.mov'));
+$json = parse_json($myVoiceIt->createVideoEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/videoEnrollmentC3.mov'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Verification By URL
-$json = parse_json($myVoiceIt->videoVerificationByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationB1.mov'));
+$json = parse_json($myVoiceIt->videoVerificationByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/videoVerificationB1.mov'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Video Identification By URL
-$json = parse_json($myVoiceIt->videoIdentificationByUrl($groupId, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoVerificationB1.mov'));
+$json = parse_json($myVoiceIt->videoIdentificationByUrl($groupId, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/videoVerificationB1.mov'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual($userId1, $json->{userId}, __LINE__);
@@ -256,7 +256,7 @@ unlink './videoEnrollmentC1.mov';
 unlink './videoEnrollmentC2.mov';
 unlink './videoEnrollmentC3.mov';
 
-print "****Video Tests All Passed****\n";
+print "**** Video Tests All Passed ****\n";
 
 # Test Voice
 $json = parse_json($myVoiceIt->createUser());
@@ -270,13 +270,13 @@ $myVoiceIt->addUserToGroup($groupId, $userId2);
 
 
 # Voice Enrollments
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentA1.wav', './enrollmentA1.wav');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentA2.wav', './enrollmentA2.wav');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentA3.wav', './enrollmentA3.wav');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/verificationA1.wav', './verificationA1.wav');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentC1.wav', './enrollmentC1.wav');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentC2.wav', './enrollmentC2.wav');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentC3.wav', './enrollmentC3.wav');
+getstore('https://drive.voiceit.io/files/enrollmentA1.wav', './enrollmentA1.wav');
+getstore('https://drive.voiceit.io/files/enrollmentA2.wav', './enrollmentA2.wav');
+getstore('https://drive.voiceit.io/files/enrollmentA3.wav', './enrollmentA3.wav');
+getstore('https://drive.voiceit.io/files/verificationA1.wav', './verificationA1.wav');
+getstore('https://drive.voiceit.io/files/enrollmentC1.wav', './enrollmentC1.wav');
+getstore('https://drive.voiceit.io/files/enrollmentC2.wav', './enrollmentC2.wav');
+getstore('https://drive.voiceit.io/files/enrollmentC3.wav', './enrollmentC3.wav');
 
 eval {
 $json = parse_json($myVoiceIt->createVoiceEnrollment($userId1, 'en-US','Never Forget Tomorrow is a new day', './enrollmentArmaa.wav'));
@@ -369,37 +369,37 @@ $myVoiceIt->addUserToGroup($groupId, $userId2);
 
 
 # Voice Enrollment By URL
-$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentA1.wav'));
+$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/enrollmentA1.wav'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentA2.wav'));
+$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/enrollmentA2.wav'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentA3.wav'));
+$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId1, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/enrollmentA3.wav'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentC1.wav'));
+$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/enrollmentC1.wav'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentC2.wav'));
+$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId2, 'en-US', 'Never Forget Tomorrow is a new day','https://drive.voiceit.io/files/enrollmentC2.wav'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/enrollmentC3.wav'));
+$json = parse_json($myVoiceIt->createVoiceEnrollmentByUrl($userId2, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/enrollmentC3.wav'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Voice Verification By URL
-$json = parse_json($myVoiceIt->voiceVerificationByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/verificationA1.wav'));
+$json = parse_json($myVoiceIt->voiceVerificationByUrl($userId1, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/verificationA1.wav'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 # Voice Identification By URL
-$json = parse_json($myVoiceIt->voiceIdentificationByUrl($groupId, 'en-US','Never Forget Tomorrow is a new day', 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/verificationA1.wav'));
+$json = parse_json($myVoiceIt->voiceIdentificationByUrl($groupId, 'en-US','Never Forget Tomorrow is a new day', 'https://drive.voiceit.io/files/verificationA1.wav'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual($userId1, $json->{userId}, __LINE__);
@@ -419,7 +419,7 @@ unlink './enrollmentC1.wav';
 unlink './enrollmentC2.wav';
 unlink './enrollmentC3.wav';
 
-print "****Voice Tests All Passed****\n";
+print "****Voice Tests All Passed ****\n";
 
 
 # Test Face
@@ -433,11 +433,11 @@ $myVoiceIt->addUserToGroup($groupId, $userId1);
 $myVoiceIt->addUserToGroup($groupId, $userId2);
 
 # Face Enrollments
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceEnrollmentB1.mp4', './faceEnrollmentB1.mp4');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceEnrollmentB2.mp4', './faceEnrollmentB2.mp4');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceEnrollmentB3.mp4', './faceEnrollmentB3.mp4');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/videoEnrollmentC1.mov', './faceEnrollmentC1.mov');
-getstore('https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceVerificationB1.mp4', './faceVerificationB1.mp4');
+getstore('https://drive.voiceit.io/files/faceEnrollmentB1.mp4', './faceEnrollmentB1.mp4');
+getstore('https://drive.voiceit.io/files/faceEnrollmentB2.mp4', './faceEnrollmentB2.mp4');
+getstore('https://drive.voiceit.io/files/faceEnrollmentB3.mp4', './faceEnrollmentB3.mp4');
+getstore('https://drive.voiceit.io/files/videoEnrollmentC1.mov', './faceEnrollmentC1.mov');
+getstore('https://drive.voiceit.io/files/faceVerificationB1.mp4', './faceVerificationB1.mp4');
 
 eval {
 $json = parse_json($myVoiceIt->createFaceEnrollment($userId1, './faceEnrollmentBds.mp4'));
@@ -452,7 +452,7 @@ $json = parse_json($myVoiceIt->createFaceEnrollment($userId1, './faceEnrollmentB
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->createFaceEnrollmentByUrl($userId1, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceEnrollmentB1.mp4'));
+$json = parse_json($myVoiceIt->createFaceEnrollmentByUrl($userId1, 'https://drive.voiceit.io/files/faceEnrollmentB1.mp4'));
 assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $faceEnrollmentId1 = $json->{faceEnrollmentId};
@@ -483,7 +483,7 @@ $json = parse_json($myVoiceIt->faceVerification($userId1, './faceVerificationB1.
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
-$json = parse_json($myVoiceIt->faceVerificationByUrl($userId1, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceVerificationB1.mp4'));
+$json = parse_json($myVoiceIt->faceVerificationByUrl($userId1, 'https://drive.voiceit.io/files/faceVerificationB1.mp4'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
@@ -492,7 +492,7 @@ assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual($userId1, $json->{userId}, __LINE__);
 
-$json = parse_json($myVoiceIt->faceIdentificationByUrl($groupId, 'https://s3.amazonaws.com/voiceit-api2-testing-files/test-data/faceVerificationB1.mp4'));
+$json = parse_json($myVoiceIt->faceIdentificationByUrl($groupId, 'https://drive.voiceit.io/files/faceVerificationB1.mp4'));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 assertEqual($userId1, $json->{userId}, __LINE__);
@@ -516,8 +516,8 @@ unlink './faceEnrollmentB3.mp4';
 unlink './faceVerificationB1.mp4';
 unlink './faceEnrollmentC1.mov';
 
-print "****Face Tests All Passed**** \n";
-print "****All Tests Passed**** \n";
+print "**** Face Tests All Passed **** \n";
+print "**** All Tests Passed **** \n";
 
 
 
