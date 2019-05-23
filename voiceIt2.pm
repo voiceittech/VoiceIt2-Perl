@@ -14,7 +14,7 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.18';
+my $platformVersion = '3.19';
 
   sub new {
     my $package = shift;
@@ -350,79 +350,6 @@ sub createGroup(){
     my ($usrId) = @_;
     my $ua = LWP::UserAgent->new();
     my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/all'.$self->{notificationUrl}, Content_Type => 'form-data';
-    $request->header('platformId' => $platformId);
-    $request->header('platformVersion' => $platformVersion);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
-  }
-
-  sub deleteAllVoiceEnrollments() {
-    shift;
-    my ($usrId) = @_;
-    my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/voice'.$self->{notificationUrl}, Content_Type => 'form-data';
-    $request->header('platformId' => $platformId);
-    $request->header('platformVersion' => $platformVersion);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
-  }
-
-  sub deleteAllFaceEnrollments() {
-    shift;
-    my ($usrId) = @_;
-    my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/face'.$self->{notificationUrl}, Content_Type => 'form-data';
-    $request->header('platformId' => $platformId);
-    $request->header('platformVersion' => $platformVersion);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
-  }
-
-  sub deleteAllVideoEnrollments() {
-    shift;
-    my ($usrId) = @_;
-    my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'/enrollments/'.$usrId.'/video', Content_Type => 'form-data';
-    $request->header('platformId' => $platformId);
-    $request->header('platformVersion' => $platformVersion);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
-  }
-
-  sub deleteFaceEnrollment(){
-    shift;
-    my ($usrId, $faceEnrollmentId) = @_;
-    my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'/enrollments/face/'.$usrId.'/'.$faceEnrollmentId.$self->{notificationUrl}, Content_Type => 'form-data';
-    $request->header('platformId' => $platformId);
-    $request->header('platformVersion' => $platformVersion);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
-  }
-
-  sub deleteVoiceEnrollment(){
-    shift;
-    my ($usrId, $voiceEnrollmentId) = @_;
-    my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'/enrollments/voice/'.$usrId.'/'.$voiceEnrollmentId.$self->{notificationUrl}, Content_Type => 'form-data';
-    $request->header('platformId' => $platformId);
-    $request->header('platformVersion' => $platformVersion);
-    $request->authorization_basic($apiKey, $apiToken);
-    my $reply = $ua->request($request);
-    return $reply->content();
-  }
-
-
-  sub deleteVideoEnrollment(){
-    shift;
-    my ($usrId, $videoEnrollmentId) = @_;
-    my $ua = LWP::UserAgent->new();
-    my $request = DELETE $baseUrl.'/enrollments/video/'.$usrId.'/'.$videoEnrollmentId.$self->{notificationUrl}.$self->{notificationUrl}, Content_Type => 'form-data';
     $request->header('platformId' => $platformId);
     $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);
