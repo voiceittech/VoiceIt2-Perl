@@ -1,6 +1,6 @@
 #!/bin/bash
 commit=$(git log -1 --pretty=%B | head -n 1)
-version=$(echo $(curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -s https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases/latest | grep '"tag_name":' |sed -E ' s/.*"([^"]+)".*/\1/') | tr "." "\n")
+version=$(echo $(curl -H "Authorization: token $GH_TOKEN" -s https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases/latest | grep '"tag_name":' |sed -E ' s/.*"([^"]+)".*/\1/') | tr "." "\n")
 set -- $version
 major=$1
 minor=$2
@@ -72,8 +72,8 @@ then
 
   if [[ $wrapperplatformversion = $version ]];
   then
-    uploadurl=$(curl -s -u $GITHUBUSERNAME:$GITHUBPASSWORD -s  -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases | grep upload_url | awk '{print $2}' | cut -d '"' -f2 | cut -f1 -d '{')
-    curl -u $GITHUBUSERNAME:$GITHUBPASSWORD -H "Content-Type: text/plain" -X POST --data-binary '@./voiceIt2.pm' $uploadurl'?name=voiceIt2.pm' 1>&2
+    uploadurl=$(curl -s -H "Authorization: token $GH_TOKEN" -H "Content-Type: application/json" --request POST --data '{"tag_name": "'$version'", "target_commitish": "master", "name": "'$version'", "body": "", "draft": false, "prerelease": false}' https://api.github.com/repos/voiceittech/VoiceIt2-Perl/releases | grep upload_url | awk '{print $2}' | cut -d '"' -f2 | cut -f1 -d '{')
+    curl -H "Authorization: token $GH_TOKEN" -H "Content-Type: text/plain" -X POST --data-binary '@./voiceIt2.pm' $uploadurl'?name=voiceIt2.pm' 1>&2
 
     if [ "$?" != "0" ]
     then
