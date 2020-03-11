@@ -102,15 +102,15 @@ assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $unmanagedSubAccountAPI = $json->{apiKey};
 
 my $json = parse_json($myVoiceIt->regenerateSubAccountAPIToken($managedSubAccountAPI));
-assertEqual(201, $json->{status}, __LINE__);
+assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 my $json = parse_json($myVoiceIt->deleteSubAccount($managedSubAccountAPI));
-assertEqual(201, $json->{status}, __LINE__);
+assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 my $json = parse_json($myVoiceIt->deleteSubAccount($unmanagedSubAccountAPI));
-assertEqual(201, $json->{status}, __LINE__);
+assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 print "**** Sub Account Tests All Passed ****\n";
 
