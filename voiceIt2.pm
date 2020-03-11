@@ -14,7 +14,7 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.20';
+my $platformVersion = '3.30';
 
   sub new {
     my $package = shift;
@@ -53,6 +53,66 @@ my $platformVersion = '3.20';
     shift;
     my $ua = LWP::UserAgent->new();
     my $request = POST $baseUrl.'/users'.$self->{notificationUrl};
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
+  }
+
+  sub createManagedSubAccount(){
+    shift;
+    my ($firstName, $lastName, $email, $password, $lang) = @_;
+    my $ua = LWP::UserAgent->new();
+    my $request = POST $baseUrl.'/subaccount/managed'.$self->{notificationUrl}, Content_Type => 'form-data', Content => [
+          firstName => $firstName,
+          lastName => $lastName,
+          email => $email,
+          password => $password,
+          contentLanguage => $lang
+    ];
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
+  }
+
+  sub createUnmanagedSubAccount(){
+    shift;
+    my ($firstName, $lastName, $email, $password, $lang) = @_;
+    my $ua = LWP::UserAgent->new();
+    my $request = POST $baseUrl.'/subaccount/unmanaged'.$self->{notificationUrl}, Content_Type => 'form-data', Content => [
+          firstName => $firstName,
+          lastName => $lastName,
+          email => $email,
+          password => $password,
+          contentLanguage => $lang
+    ];
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
+  }
+
+  sub regenerateSubAccountAPIToken() {
+    shift;
+    my ($APIKey) = @_;
+    my $ua = LWP::UserAgent->new();
+    my $request = POST $baseUrl.'/subaccount/'.$APIKey.$self->{notificationUrl};
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
+  }
+
+  sub deleteSubAccount(){
+    shift;
+    my ($APIKey) = @_;
+    my $ua = LWP::UserAgent->new();
+    my $request = DELETE $baseUrl.'/subaccount/'.$APIKey.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
     $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);

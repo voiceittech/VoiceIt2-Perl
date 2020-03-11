@@ -89,6 +89,31 @@ assertEqual('SUCC', $json->{responseCode}, __LINE__);
 
 print "**** Basic Tests All Passed ****\n";
 
+# Test SubAccounts
+
+my $json = parse_json($myVoiceIt->createManagedSubAccount('Test','Perl', '', '', ''));
+assertEqual(201, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+my $managedSubAccountAPI = $json->{apiKey};
+
+my $json = parse_json($myVoiceIt->createUnmanagedSubAccount('Test','Perl', '', '', ''));
+assertEqual(201, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+my $unmanagedSubAccountAPI = $json->{apiKey};
+
+my $json = parse_json($myVoiceIt->regenerateSubAccountAPIToken($managedSubAccountAPI));
+assertEqual(201, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+
+my $json = parse_json($myVoiceIt->deleteSubAccount($managedSubAccountAPI));
+assertEqual(201, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+
+my $json = parse_json($myVoiceIt->deleteSubAccount($unmanagedSubAccountAPI));
+assertEqual(201, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+print "**** Sub Account Tests All Passed ****\n";
+
 # Test Video
 $json = parse_json($myVoiceIt->createUser());
 my $userId1 = $json->{userId};
