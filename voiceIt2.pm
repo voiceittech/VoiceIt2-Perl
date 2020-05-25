@@ -14,7 +14,7 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.21';
+my $platformVersion = '3.22';
 
   sub new {
     my $package = shift;
@@ -626,6 +626,18 @@ sub createGroup(){
           password => $password,
           contentLanguage => $lang
     ];
+    $request->header('platformId' => $platformId);
+    $request->header('platformVersion' => $platformVersion);
+    $request->authorization_basic($apiKey, $apiToken);
+    my $reply = $ua->request($request);
+    return $reply->content();
+  }
+
+  sub switchSubAccountType() {
+    shift;
+    my ($subAccountAPIKey) = @_;
+    my $ua = LWP::UserAgent->new();
+    my $request = POST $baseUrl.'/subaccount/'.$subAccountAPIKey.'/switchType'.$self->{notificationUrl};
     $request->header('platformId' => $platformId);
     $request->header('platformVersion' => $platformVersion);
     $request->authorization_basic($apiKey, $apiToken);

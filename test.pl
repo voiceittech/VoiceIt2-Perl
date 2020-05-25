@@ -101,6 +101,10 @@ assertEqual(201, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
 my $unmanagedSubAccountAPI = $json->{apiKey};
 
+my $json = parse_json($myVoiceIt->switchSubAccountType($unmanagedSubAccountAPI));
+assertEqual(200, $json->{status}, __LINE__);
+assertEqual('SUCC', $json->{responseCode}, __LINE__);
+
 my $json = parse_json($myVoiceIt->regenerateSubAccountAPIToken($managedSubAccountAPI));
 assertEqual(200, $json->{status}, __LINE__);
 assertEqual('SUCC', $json->{responseCode}, __LINE__);
