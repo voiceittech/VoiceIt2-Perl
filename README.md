@@ -1,6 +1,6 @@
 <img src="./perl.png" width="100%" style="width:100%" />
 
-# VoiceIt2-Perl [![travis](https://travis-ci.com/voiceittech/VoiceIt2-Perl.svg?branch=master)](https://travis-ci.com/voiceittech/VoiceIt2-Perl)
+# VoiceIt2-Perl [![travis](https://travis-ci.com/voiceittech/VoiceIt2-Perl.svg?branch=master)](https://travis-ci.com/voiceittech/VoiceIt2-Perl) ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 A Perl wrapper for VoiceIt's API 2.0 featuring Voice + Face Verification and Identification.
 
