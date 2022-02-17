@@ -18,8 +18,7 @@ my $platformVersion = '3.24';
 
   sub new {
     my $package = shift;
-    $n = scalar(@_);
-    if ($n == 3) {
+    if (scalar(@_) == 3) {
       ($apiKey, $apiToken, $customUrl) = @_;
       $baseUrl = $customUrl;
     } else {
