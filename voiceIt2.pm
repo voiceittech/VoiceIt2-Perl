@@ -14,11 +14,17 @@ my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
 my $platformId = 38;
-my $platformVersion = '3.23';
+my $platformVersion = '3.24';
 
   sub new {
     my $package = shift;
-    ($apiKey, $apiToken) = @_;
+    $n = scalar(@_);
+    if ($n == 3) {
+      ($apiKey, $apiToken, $customUrl) = @_;
+      $baseUrl = $customUrl;
+    } else {
+      ($apiKey, $apiToken) = @_;
+    }
     $self = bless({apiKey => $apiKey, apiToken => $apiToken}, $package);
     return $self;
   }
