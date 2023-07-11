@@ -13,6 +13,7 @@ my $baseUrl = 'https://api.voiceit.io';
 my $notificationUrl = '';
 my $apiKey;
 my $apiToken;
+my $customUrl;
 my $platformId = 38;
 my $platformVersion = '3.24';
 
